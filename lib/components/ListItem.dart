@@ -15,7 +15,7 @@ class ListItem extends StatelessWidget {
       leading: Padding(
         padding: const EdgeInsets.only(right: 15.0),
         child: Material(
-          child: Image.asset(recipe.image),
+          child: Hero(tag: recipe.image, child: Image.asset(recipe.image)),
           elevation: 10.0,
           shape: CircleBorder(),
           clipBehavior: Clip.antiAlias,

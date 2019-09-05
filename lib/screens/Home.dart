@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:you_food/components/ContainerRounded.dart';
 import 'package:you_food/components/Header.dart';
 import 'package:you_food/components/ListItem.dart';
-import 'package:you_food/models/Recipe.dart';
+import 'package:you_food/constants/Colors.dart';
+import 'package:you_food/mocks/RecipesMock.dart';
 import 'package:you_food/screens/Details.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,33 +14,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  static final recipes = <Recipe>[
-    Recipe(
-      name: 'Salmon Bowl',
-      image: 'assets/plate1.png',
-      price: 24.0,
-    ),
-    Recipe(
-      name: 'Spring Bowl',
-      image: 'assets/plate5.png',
-      price: 22.0,
-    ),
-    Recipe(
-      name: 'Avocado Bowl',
-      image: 'assets/plate3.png',
-      price: 26.0,
-    ),
-    Recipe(
-      name: 'Berry Bowl',
-      image: 'assets/plate4.png',
-      price: 28.0,
-    ),
-  ];
+  static final recipes = RecipesMock.getAll();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff2AB5B1),
+      backgroundColor: kPrimaryColor,
       body: SafeArea(
         child: Column(
           children: <Widget>[
@@ -70,20 +50,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            ContainerRounded(
-              child: ListView.builder(
-                padding: EdgeInsets.only(right: 25.0, left: 25.0, top: 50.0),
-                itemCount: recipes.length,
-                itemBuilder: (context, index) {
-                  var recipe = recipes[index];
-                  return ListItem(
-                    recipe: recipe,
-                    onTap: () {
-                      Navigator.pushNamed(context, DetailsScreen.id,
-                          arguments: recipe);
-                    },
-                  );
-                },
+            Expanded(
+              child: ContainerRounded(
+                child: ListView.builder(
+                  padding: EdgeInsets.only(right: 25.0, left: 25.0, top: 50.0),
+                  itemCount: recipes.length,
+                  itemBuilder: (context, index) {
+                    var recipe = recipes[index];
+                    return ListItem(
+                      recipe: recipe,
+                      onTap: () {
+                        Navigator.pushNamed(context, DetailsScreen.id,
+                            arguments: recipe);
+                      },
+                    );
+                  },
+                ),
               ),
             ),
           ],
