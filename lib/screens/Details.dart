@@ -9,8 +9,15 @@ import 'package:you_food/constants/MeasurementType.dart';
 import 'package:you_food/constants/NutritionFact.dart';
 import 'package:you_food/models/Recipe.dart';
 
-class DetailsScreen extends StatelessWidget {
+class DetailsScreen extends StatefulWidget {
   static String id = 'DetailsScreen';
+
+  @override
+  _DetailsScreenState createState() => _DetailsScreenState();
+}
+
+class _DetailsScreenState extends State<DetailsScreen> {
+  int quantity = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +64,13 @@ class DetailsScreen extends StatelessWidget {
                             Text('\$${recipe.price.toStringAsFixed(2)}',
                                 style: TextStyle(fontSize: 25.0)),
                             VerticalSeparator(),
-                            QuantitySelector(),
+                            QuantitySelector(
+                              onChange: (value) {
+                                setState(() {
+                                  quantity = value;
+                                });
+                              },
+                            ),
                           ],
                         ),
                       ],
@@ -118,7 +131,7 @@ class DetailsScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          '\$${recipe.price}',
+                          '\$${(recipe.price * quantity).toStringAsFixed(2)}',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
